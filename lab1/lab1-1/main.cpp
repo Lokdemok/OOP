@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 			{
 				textIsFound = true;
 				copy(foundLineNumbers.begin(), foundLineNumbers.end(), ostream_iterator<int>(cout, "\n"));
+				cout << endl;
 			}
 			else
 			{
