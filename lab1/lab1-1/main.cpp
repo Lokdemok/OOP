@@ -6,9 +6,10 @@
 
 using namespace std;
 
-vector<int> FindStringOccurrences(ifstream &inFile, const string &searchStr, vector<int> &numStr)
+vector<int> FindStringOccurrences(ifstream &inFile, const string &searchStr)
 {
 	string line;
+	vector<int> numStr;
 	int counterNumString = 0;
 	while (getline(inFile, line))
 	{
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
 		vector<int> foundLineNumbers;
 		if (inputFile.is_open())
 		{
-			FindStringOccurrences(inputFile, searchStr, foundLineNumbers);
+			foundLineNumbers = FindStringOccurrences(inputFile, searchStr);
 			if (!foundLineNumbers.empty())
 			{
 				textIsFound = true;
