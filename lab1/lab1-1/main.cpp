@@ -1,3 +1,4 @@
+#include <iterator>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -5,55 +6,52 @@
 
 using namespace std;
 
-void findNumberString(ifstream &inFile, string searchStr, vector<int> &numStr)
+vector<int> FindStringOccurrences(ifstream &inFile, const string &searchStr, vector<int> &numStr)
 {
-	string stringFile;
+	string line;
 	int counterNumString = 0;
-	while (getline(inFile, stringFile))
+	while (getline(inFile, line))
 	{
 		++counterNumString;
-		if (stringFile.find(searchStr) != string::npos)
+		if (line.find(searchStr) != string::npos)
 		{
 			numStr.push_back(counterNumString);
 		}
 	}
+	return numStr;
 }
 
 int main(int argc, char *argv[])
 {
-	ifstream inputFile(argv[1]);
-	string searchStr = argv[2];
-	vector<int> numFindStr;
-	bool isFindText = false;
-	if (argc != 3) {
-		cout << "\nNot enough parameters. The correct command line format:\nfindtext.exe <file name><text to search>"<< "\n";
+	bool textIsFound = false;
+	if (argc != 4)
+	{
+		cout << "\nNot enough parameters. The correct command line format:\nfindtext.exe <file name> <text to search>" << "\n";
 	}
 	else
 	{
-
+		ifstream inputFile(argv[2]);
+		string searchStr = argv[3];
+		vector<int> foundLineNumbers;
 		if (inputFile.is_open())
 		{
-			findNumberString(inputFile, searchStr, numFindStr);
-			if (numFindStr.empty() != true)
+			FindStringOccurrences(inputFile, searchStr, foundLineNumbers);
+			if (!foundLineNumbers.empty())
 			{
-				isFindText = true;
-				for (int i = 0; i < (int)numFindStr.size(); ++i)
-				{
-					printf("%d\n", numFindStr[i]);
-				}
+				textIsFound = true;
+				copy(foundLineNumbers.begin(), foundLineNumbers.end(), ostream_iterator<int>(cout, "\n"));
 			}
 			else
 			{
-				cout << "Textnotfound" << "\n";
+				cout << "Text not found" << "\n";
 			}
 		}
 		else
 		{
-			cout << "Unable to open file " << argv[1] << "\n";
+			cout << "Unable to open file " << argv[2] << "\n";
 		}
 	}
-	system("pause");
-	if (isFindText)
+	if (textIsFound)
 	{
 		return 0;
 	}
