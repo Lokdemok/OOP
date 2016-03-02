@@ -141,6 +141,13 @@ test.bat "$(TargetPath)"</Command>
     <Text Include="Tests\input2.txt" />
     <Text Include="Tests\input3.txt" />
     <Text Include="Tests\input4.txt" />
+    <Text Include="Tests\out.txt" />
+    <Text Include="Tests\out1.txt" />
+    <Text Include="Tests\out2.txt" />
+    <Text Include="Tests\out3.txt" />
+    <Text Include="Tests\out4.txt" />
+    <Text Include="Tests\out5.txt" />
+    <Text Include="Tests\out6.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tests\test.bat" />
