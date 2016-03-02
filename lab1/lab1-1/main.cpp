@@ -25,14 +25,14 @@ vector<int> FindStringOccurrences(ifstream &inFile, const string &searchStr)
 int main(int argc, char *argv[])
 {
 	bool textIsFound = false;
-	if (argc != 4)
+	if (argc != 3)
 	{
-		cout << "\nNot enough parameters. The correct command line format:\nfindtext.exe <file name> <text to search>" << "\n";
+		cout << "Not enough parameters. The correct command line format:\nfindtext.exe <file name> <text to search>" << "\n";
 	}
 	else
 	{
-		ifstream inputFile(argv[2]);
-		string searchStr = argv[3];
+		ifstream inputFile(argv[1]);
+		string searchStr = argv[2];
 		vector<int> foundLineNumbers;
 		if (inputFile.is_open())
 		{
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			cout << "Unable to open file " << argv[2] << "\n";
+			cout << "Unable to open file " << argv[1] << "\n";
 		}
 	}
 	if (textIsFound)

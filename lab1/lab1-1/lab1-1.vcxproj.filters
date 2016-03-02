@@ -13,10 +13,32 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{a3c79d59-dcdf-4780-a454-d255992a8763}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Tests\input.txt">
+      <Filter>test</Filter>
+    </Text>
+    <Text Include="Tests\input2.txt">
+      <Filter>test</Filter>
+    </Text>
+    <Text Include="Tests\input3.txt">
+      <Filter>test</Filter>
+    </Text>
+    <Text Include="Tests\input4.txt">
+      <Filter>test</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tests\test.bat">
+      <Filter>test</Filter>
+    </None>
   </ItemGroup>
 </Project>
