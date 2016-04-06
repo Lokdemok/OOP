@@ -1,4 +1,3 @@
-#include <iterator>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -11,36 +10,78 @@
 
 using namespace std;
 
-map<string, string> FillDictionary(ifstream &inFile)
+class CDictionary
+{
+public:
+	void SaveNewWordsOnUserDemand(ofstream &outputFile);
+	void SaveTranslationForNewWordOnUserDemand(const string & newWord);
+	map<string, string> FillDictionary(ifstream &inFile);
+	bool IsKnowWord(const string & inputWord);
+	void PrintTranslation(const string & word);
+	vector <string> newWords;
+	map<string, string> dictionary;
+};
+
+map<string, string> CDictionary::FillDictionary(ifstream &inFile)
 {
 	string key;
 	string value;
-	map<string, string> dictionary;
 	while (!inFile.eof())
 	{
-		getline(inFile, key, '\n');
-		getline(inFile, value, '\n');
-		dictionary.insert(pair<string, string>(key, value));
+		getline(inFile, key);
+		getline(inFile, value);
+		dictionary.emplace(key, value);
 	}
 	inFile.close();
 	return dictionary;
 }
 
-
-void FinishProgramm(vector <string> &keys, map<string, string> &dictionary, ofstream &outputFile)
+void CDictionary::SaveTranslationForNewWordOnUserDemand(const string & newWord)
 {
-	string value;
-	cout << "¬ словарь были внесены изменени€. ¬ведите Y или y дл€ сохранени€ перед выходом.\n";
-	cin.ignore();
-	getline(cin, value, '\n');
-	if (value == "Y" || value == "y")
+	string translation;
+	cout << "Ќеизвестное слово У" << newWord << "Ф.¬ведите строку перевода или пустую строку дл€ отказа.\n";
+	getline(cin, translation);
+	if (!translation.empty())
 	{
-		for (int i = 0; i < keys.size(); i++)
-		{
-			outputFile << keys[i] << '\n' << dictionary[keys[i]] << '\n';
-		}
-		cout << "»зменени€ сохранены. ƒо свидани€";
+		dictionary[newWord] = translation;
+		cout << "—лово У" << newWord << "Ф сохранено в словаре как У" << dictionary[newWord] << "Ф.\n";
+		newWords.push_back(newWord);
 	}
+	else
+	{
+		cout << "—лово У" << newWord << "Ф проигнорировано.\n";
+	}
+}
+
+void CDictionary::SaveNewWordsOnUserDemand(ofstream &outputFile)
+{
+	if (!newWords.empty())
+	{
+		string value;
+		cout << "¬ словарь были внесены изменени€. ¬ведите Y или y дл€ сохранени€ перед выходом.\n";
+		getline(cin, value);
+		if (value == "Y" || value == "y")
+		{
+			for (auto word : newWords)
+			{
+				outputFile << word << '\n' << dictionary.at(word) << '\n';
+			}
+			cout << "»зменени€ сохранены. ƒо свидани€";
+		}
+	}
+}
+
+bool CDictionary::IsKnowWord(const string & inputWord)
+{
+	if (dictionary.count(inputWord))
+		return true;
+	else
+		return false;
+}
+
+void CDictionary::PrintTranslation(const string & word)
+{
+	cout << dictionary.at(word) << "\n";
 }
 
 int main(int argc, char *argv[])
@@ -55,46 +96,29 @@ int main(int argc, char *argv[])
 	else
 	{
 		ifstream inputFile(argv[1]);
-		string key;
-		string value;
-		vector <string> newKeys;
-		map<string, string> dictionary;
+		string inputWord;
+		CDictionary dictionary;
 		if (inputFile.is_open())
 		{
-			dictionary = FillDictionary(inputFile);
+			dictionary.FillDictionary(inputFile);
 		}
+		cout << "ƒл€ перевода введите слово на английском. ƒл€ выхода введите '...'\n";
 		ofstream outputFile;
 		outputFile.open(argv[1], ios::app);
-		cin >> key;
-		while (key != "...")
+		getline(cin, inputWord);
+		while (inputWord != "...")
 		{
-			if (dictionary.count(key))
+			if (dictionary.IsKnowWord(inputWord))
 			{
-				cout << dictionary[key] << "\n";
+				dictionary.PrintTranslation(inputWord);
 			}
 			else
 			{
-				cout << "Ќеизвестное слово У" << key << "Ф.¬ведите строку перевода или пустую строку дл€ отказа.\n";
-				cin.ignore();
-				getline(cin, value, '\n');
-				if (!value.empty())
-				{
-					dictionary[key] = value;
-					cout << "—лово У" << key << "Ф сохранено в словаре как У" << dictionary[key] << "Ф.\n";
-					newKeys.push_back(key);
-				}
-				else
-				{
-					cout << "—лово У" << key << "Ф проигнорировано.\n";
-				}
-
+				dictionary.SaveTranslationForNewWordOnUserDemand(inputWord);
 			}
-			cin >> key;
+			getline(cin, inputWord);
 		}
-		if (!newKeys.empty())
-		{
-			FinishProgramm(newKeys, dictionary, outputFile);
-		}
+		dictionary.SaveNewWordsOnUserDemand(outputFile);
 	}
 	return 0;
 

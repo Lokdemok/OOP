@@ -6,7 +6,9 @@ fail
 файл
 set
 множество
-train
-тренировать
 string
 строка
+base
+основа
+train
+поезд
