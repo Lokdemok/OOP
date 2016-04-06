@@ -39,17 +39,17 @@ map<string, string> CDictionary::FillDictionary(ifstream &inFile)
 void CDictionary::SaveTranslationForNewWordOnUserDemand(const string & newWord)
 {
 	string translation;
-	cout << "Íåèçâåñòíîå ñëîâî “" << newWord << "”.Ââåäèòå ñòðîêó ïåðåâîäà èëè ïóñòóþ ñòðîêó äëÿ îòêàçà.\n";
+	cout << "ÐÐµÐ¸Ð·Ð²ÐµÑÑ‚Ð½Ð¾Ðµ ÑÐ»Ð¾Ð²Ð¾ â€œ" << newWord << "â€.Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ð¿ÐµÑ€ÐµÐ²Ð¾Ð´Ð° Ð¸Ð»Ð¸ Ð¿ÑƒÑÑ‚ÑƒÑŽ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ð´Ð»Ñ Ð¾Ñ‚ÐºÐ°Ð·Ð°.\n";
 	getline(cin, translation);
 	if (!translation.empty())
 	{
 		dictionary[newWord] = translation;
-		cout << "Ñëîâî “" << newWord << "” ñîõðàíåíî â ñëîâàðå êàê “" << dictionary[newWord] << "”.\n";
+		cout << "Ð¡Ð»Ð¾Ð²Ð¾ â€œ" << newWord << "â€ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¾ Ð² ÑÐ»Ð¾Ð²Ð°Ñ€Ðµ ÐºÐ°Ðº â€œ" << dictionary[newWord] << "â€.\n";
 		newWords.push_back(newWord);
 	}
 	else
 	{
-		cout << "Ñëîâî “" << newWord << "” ïðîèãíîðèðîâàíî.\n";
+		cout << "Ð¡Ð»Ð¾Ð²Ð¾ â€œ" << newWord << "â€ Ð¿Ñ€Ð¾Ð¸Ð³Ð½Ð¾Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¾.\n";
 	}
 }
 
@@ -58,7 +58,7 @@ void CDictionary::SaveNewWordsOnUserDemand(ofstream &outputFile)
 	if (!newWords.empty())
 	{
 		string value;
-		cout << "Â ñëîâàðü áûëè âíåñåíû èçìåíåíèÿ. Ââåäèòå Y èëè y äëÿ ñîõðàíåíèÿ ïåðåä âûõîäîì.\n";
+		cout << "Ð’ ÑÐ»Ð¾Ð²Ð°Ñ€ÑŒ Ð±Ñ‹Ð»Ð¸ Ð²Ð½ÐµÑÐµÐ½Ñ‹ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ. Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Y Ð¸Ð»Ð¸ y Ð´Ð»Ñ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÐµÑ€ÐµÐ´ Ð²Ñ‹Ñ…Ð¾Ð´Ð¾Ð¼.\n";
 		getline(cin, value);
 		if (value == "Y" || value == "y")
 		{
@@ -66,7 +66,7 @@ void CDictionary::SaveNewWordsOnUserDemand(ofstream &outputFile)
 			{
 				outputFile << word << '\n' << dictionary.at(word) << '\n';
 			}
-			cout << "Èçìåíåíèÿ ñîõðàíåíû. Äî ñâèäàíèÿ";
+			cout << "Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ñ‹. Ð”Ð¾ ÑÐ²Ð¸Ð´Ð°Ð½Ð¸Ñ";
 		}
 	}
 }
@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 		{
 			dictionary.FillDictionary(inputFile);
 		}
-		cout << "Äëÿ ïåðåâîäà ââåäèòå ñëîâî íà àíãëèéñêîì. Äëÿ âûõîäà ââåäèòå '...'\n";
+		cout << "Ð”Ð»Ñ Ð¿ÐµÑ€ÐµÐ²Ð¾Ð´Ð° Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÐ»Ð¾Ð²Ð¾ Ð½Ð° Ð°Ð½Ð³Ð»Ð¸Ð¹ÑÐºÐ¾Ð¼. Ð”Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð° Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ '...'\n";
 		ofstream outputFile;
 		outputFile.open(argv[1], ios::app);
 		getline(cin, inputWord);
