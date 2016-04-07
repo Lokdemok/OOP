@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 		{
 			dictionary.FillDictionary(inputFile);
 		}
-		cout << "Äëÿ ïåðåâîäà ââåäèòå ñëîâî íà àíãëèéñêîì. Äëÿ âûõîäà ââåäèòå '...'\n";
+		cout << "Ð”Ð»Ñ Ð¿ÐµÑ€ÐµÐ²Ð¾Ð´Ð° Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÐ»Ð¾Ð²Ð¾ Ð½Ð° Ð°Ð½Ð³Ð»Ð¸Ð¹ÑÐºÐ¾Ð¼. Ð”Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð° Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ '...'\n";
 		ofstream outputFile;
 		outputFile.open(argv[1], ios::app);
 		getline(cin, inputWord);

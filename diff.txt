@@ -1,0 +1,88 @@
+diff --cc lab2-4/lab2-4/main.cpp
+index 4a332b5,38ade70..0000000
+--- a/lab2-4/lab2-4/main.cpp
++++ b/lab2-4/lab2-4/main.cpp
+@@@ -6,6 -10,80 +6,83 @@@
+  
+  using namespace std;
+  
+++<<<<<<< HEAD
+++=======
++ class CDictionary
++ {
++ public:
++ 	void SaveNewWordsOnUserDemand(ofstream &outputFile);
++ 	void SaveTranslationForNewWordOnUserDemand(const string & newWord);
++ 	map<string, string> FillDictionary(ifstream &inFile);
++ 	bool IsKnowWord(const string & inputWord);
++ 	void PrintTranslation(const string & word);
++ 	vector <string> newWords;
++ 	map<string, string> dictionary;
++ };
++ 
++ map<string, string> CDictionary::FillDictionary(ifstream &inFile)
++ {
++ 	string key;
++ 	string value;
++ 	while (!inFile.eof())
++ 	{
++ 		getline(inFile, key);
++ 		getline(inFile, value);
++ 		dictionary.emplace(key, value);
++ 	}
++ 	inFile.close();
++ 	return dictionary;
++ }
++ 
++ void CDictionary::SaveTranslationForNewWordOnUserDemand(const string & newWord)
++ {
++ 	string translation;
++ 	cout << "Неизвестное слово “" << newWord << "”.Введите строку перевода или пустую строку для отказа.\n";
++ 	getline(cin, translation);
++ 	if (!translation.empty())
++ 	{
++ 		dictionary[newWord] = translation;
++ 		cout << "Слово “" << newWord << "” сохранено в словаре как “" << dictionary[newWord] << "”.\n";
++ 		newWords.push_back(newWord);
++ 	}
++ 	else
++ 	{
++ 		cout << "Слово “" << newWord << "” проигнорировано.\n";
++ 	}
++ }
++ 
++ void CDictionary::SaveNewWordsOnUserDemand(ofstream &outputFile)
++ {
++ 	if (!newWords.empty())
++ 	{
++ 		string value;
++ 		cout << "В словарь были внесены изменения. Введите Y или y для сохранения перед выходом.\n";
++ 		getline(cin, value);
++ 		if (value == "Y" || value == "y")
++ 		{
++ 			for (auto word : newWords)
++ 			{
++ 				outputFile << word << '\n' << dictionary.at(word) << '\n';
++ 			}
++ 			cout << "Изменения сохранены. До свидания";
++ 		}
++ 	}
++ }
++ 
++ bool CDictionary::IsKnowWord(const string & inputWord)
++ {
++ 	if (dictionary.count(inputWord))
++ 		return true;
++ 	else
++ 		return false;
++ }
++ 
++ void CDictionary::PrintTranslation(const string & word)
++ {
++ 	cout << dictionary.at(word) << "\n";
++ }
++ 
+++>>>>>>> bff3c9c78e17e8cade700461f3d48af7d5ff22d9
+  int main(int argc, char *argv[])
+  {
+  	SetConsoleOutputCP(1251);
