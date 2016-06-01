@@ -13,7 +13,7 @@ CCanvas::CCanvas(unsigned widthOfPole, unsigned heightOfPole)
 	matrix = std::vector<std::vector<char>>(widthOfPole);
 	for (size_t i = 0; i < widthOfPole; i++)
 	{
-		matrix[i].resize(widthOfPole);
+		matrix[i].resize(heightOfPole);
 	}
 	Clear(' ');
 }
