@@ -269,12 +269,17 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 		BOOST_CHECK(CRational(2, 4) == CRational(1, 2));
 		BOOST_CHECK(CRational(4, 1) == 4);
 		BOOST_CHECK(3 == CRational(6, 2));
+		BOOST_CHECK(!(CRational(4, 1) == 3));
+		BOOST_CHECK(!(CRational(4, 1) == CRational(1, 2)));
 	}
 	BOOST_AUTO_TEST_CASE(not_equal_operator)
 	{
 		BOOST_CHECK(CRational(1, 2) != CRational(2, 3));
 		BOOST_CHECK(CRational(1, 2) != 7);
 		BOOST_CHECK(3 != CRational(2, 3));
+		BOOST_CHECK(!(CRational(1, 2) != CRational(1, 2)));
+		BOOST_CHECK(!(CRational(2, 2) != 1));
+		BOOST_CHECK(!(3 != CRational(9, 3)));
 	}
 
 
@@ -295,6 +300,8 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 		BOOST_CHECK(CRational(1, 2) < 7);
 		BOOST_CHECK(CRational(-2, 4) < CRational(1, 2));
 		BOOST_CHECK(CRational(-1, 6) < 0);
+		BOOST_CHECK(!(CRational(1, 2) < 0));
+		BOOST_CHECK(!(CRational(-2, 4) < CRational(-1, 2)));
 	}
 
 	BOOST_AUTO_TEST_CASE(more_operator)
@@ -302,6 +309,8 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 		BOOST_CHECK(CRational(3, 1) > 2);
 		BOOST_CHECK(CRational(-2, 5) > CRational(-1, 2));
 		BOOST_CHECK(CRational(1, 6) > CRational(-1, 6));
+		BOOST_CHECK(!(CRational(1, 2) > 2));
+		BOOST_CHECK(!(CRational(-2, 4) > CRational(-1, 2)));
 	}
 
 	BOOST_AUTO_TEST_CASE(less_or_equal_operator)
@@ -309,6 +318,9 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 		BOOST_CHECK(3 <= CRational(7, 2));
 		BOOST_CHECK(CRational(1, 3) <= CRational(1, 2));
 		BOOST_CHECK(CRational(6, 1) <= 6);
+		BOOST_CHECK(!(3 <= CRational(3, 2)));
+		BOOST_CHECK(!(CRational(1, 3) <= CRational(1, 4)));
+		BOOST_CHECK(!(CRational(6, 1) <= 5));
 	}
 
 	BOOST_AUTO_TEST_CASE(more_or_equal_operator)
@@ -316,6 +328,9 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 		BOOST_CHECK(CRational(7, 2) >= 3);
 		BOOST_CHECK(CRational(1, 2) >= CRational(1, 3));
 		BOOST_CHECK(CRational(6, 1) >= 6);
+		BOOST_CHECK(!(CRational(5, 2) >= 3));
+		BOOST_CHECK(!(CRational(1, 4) >= CRational(1, 3)));
+		BOOST_CHECK(!(CRational(5, 1) >= 6));
 	}
 
 //////////////////////////////////////////////////////////////////////////
@@ -328,8 +343,8 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 	BOOST_AUTO_TEST_CASE(rational_integer_to_ostream)
 	{
 		std::ostringstream strRational;
-		strRational << CRational(7, 15);
-		BOOST_CHECK_EQUAL(strRational.str(), "7/15");
+		strRational << CRational(-7, 15);
+		BOOST_CHECK_EQUAL(strRational.str(), "-7/15");
 	}
 
 
