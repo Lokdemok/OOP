@@ -14,7 +14,7 @@
 
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
-#define BOOST_TEST_MODULE TestModule
 #define BOOST_TEST_INCLUDED
 #pragma warning(disable:4702)
+#include <boost/algorithm/string/replace.hpp>
 #include <boost/test/unit_test.hpp>

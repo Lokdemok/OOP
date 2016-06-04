@@ -48,29 +48,6 @@ public:
 	CRational const operator - () const;
 
 
-	//////////////////////////////////////////////////////////////////////////
-	// TODO: 3. Реализовать бинарный +
-	// Возвращает результат сложения двух рациональных чисел, 
-	//	рационального числа с целым, целого числа с рациональным.
-	//	(1/2) + (1/6) = (2/3)
-	//	(1/2) + 1     = (3/2)
-	//	1 + (1/2)     = (3/2)
-	//////////////////////////////////////////////////////////////////////////
-
-	friend CRational const operator + (CRational const & firstRational, CRational const & secondRational);
-
-
-	//////////////////////////////////////////////////////////////////////////
-	// TODO: 4. Реализовать бинарный -
-	// Возвращает разность двух рациональных чисел, 
-	//	рационального числа и целого, либо целого числа и рационального:
-	//	(1/2) - (1/6) = (1/3)
-	//	(1/2) - 1     = (-1/2)
-	//	1 - (1/2)     = (1/2)
-	//////////////////////////////////////////////////////////////////////////
-
-	friend CRational const operator - (CRational const & firstRational, CRational const & secondRational);
-
 
 	//////////////////////////////////////////////////////////////////////////
 	// TODO: 5. Реализовать оператор +=
@@ -132,6 +109,30 @@ private:
 };
 // Вычисляет наибольший общий знаменатель чисел a и b
 unsigned GCD(unsigned a, unsigned b);
+
+//////////////////////////////////////////////////////////////////////////
+// TODO: 3. Реализовать бинарный +
+// Возвращает результат сложения двух рациональных чисел, 
+//	рационального числа с целым, целого числа с рациональным.
+//	(1/2) + (1/6) = (2/3)
+//	(1/2) + 1     = (3/2)
+//	1 + (1/2)     = (3/2)
+//////////////////////////////////////////////////////////////////////////
+
+CRational operator + (CRational const & lhs, CRational const & rhs);
+
+
+//////////////////////////////////////////////////////////////////////////
+// TODO: 4. Реализовать бинарный -
+// Возвращает разность двух рациональных чисел, 
+//	рационального числа и целого, либо целого числа и рационального:
+//	(1/2) - (1/6) = (1/3)
+//	(1/2) - 1     = (-1/2)
+//	1 - (1/2)     = (1/2)
+//////////////////////////////////////////////////////////////////////////
+
+CRational operator - (CRational const & lhs, CRational const & rhs);
+
 //////////////////////////////////////////////////////////////////////////
 // TODO: 7. Реализовать оператор *
 // Возвращает результат произведения рациональных чисел, 
@@ -141,7 +142,7 @@ unsigned GCD(unsigned a, unsigned b);
 //	(7*2) / 3     = (14/3)
 //////////////////////////////////////////////////////////////////////////
 
-CRational operator * (CRational const & firstRational, CRational const & secondRational);
+CRational operator * (CRational const & lhs, CRational const & rhs);
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -153,7 +154,7 @@ CRational operator * (CRational const & firstRational, CRational const & secondR
 //	7 ⁄ (2/3)     = (21/2)
 //////////////////////////////////////////////////////////////////////////
 
-CRational const operator / (CRational const & firstRational, CRational const & secondRational);
+CRational const operator / (CRational const & lhs, CRational const & rhs);
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 11. Реализовать операторы == и !=
@@ -168,8 +169,8 @@ CRational const operator / (CRational const & firstRational, CRational const & s
 //////////////////////////////////////////////////////////////////////////
 
 
-bool const operator == (CRational const & firstRational, CRational const & secondRational);
-bool const operator != (CRational const & firstRational, CRational const & secondRational);
+bool const operator == (CRational const & lhs, CRational const & rhs);
+bool const operator != (CRational const & lhs, CRational const & rhs);
 
 
 
@@ -185,13 +186,13 @@ bool const operator != (CRational const & firstRational, CRational const & secon
 //	3 >= (8/2)     → false
 //////////////////////////////////////////////////////////////////////////
 
-bool const operator <(CRational const &firstRational, CRational const &secondRational);
+bool const operator <(CRational const &lhs, CRational const &rhs);
 
-bool const operator >(CRational const &firstRational, CRational const &secondRational);
+bool const operator >(CRational const &lhs, CRational const &rhs);
 
-bool const operator <=(CRational const &firstRational, CRational const &secondRational);
+bool const operator <=(CRational const &lhs, CRational const &rhs);
 
-bool const operator >=(CRational const &firstRational, CRational const &secondRational);
+bool const operator >=(CRational const &lhs, CRational const &rhs);
 
 
 // TODO: 13. Реализовать оператор вывода рационального числа в выходной поток 

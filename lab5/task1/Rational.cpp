@@ -70,12 +70,10 @@ CRational const CRational::operator- () const
 // TODO: 3. Реализовать бинарный +
 //////////////////////////////////////////////////////////////////////////
 
-CRational const operator + (CRational const & firstRational, CRational const & secondRational)
+CRational operator + (CRational const & lhs, CRational const & rhs)
 {
-	CRational result(firstRational.m_numerator * secondRational.m_denominator + secondRational.m_numerator*firstRational.m_denominator,
-		firstRational.m_denominator * secondRational.m_denominator);
-	result.Normalize();
-	return result;
+	return{ lhs.GetNumerator() * rhs.GetDenominator() + rhs.GetNumerator()*lhs.GetDenominator(),
+		lhs.GetDenominator() * rhs.GetDenominator() };
 }
 
 
@@ -83,12 +81,10 @@ CRational const operator + (CRational const & firstRational, CRational const & s
 // TODO: 4. Реализовать бинарный -
 //////////////////////////////////////////////////////////////////////////
 
-CRational const operator - (CRational const & firstRational, CRational const & secondRational)
+CRational operator - (CRational const & lhs, CRational const & rhs)
 {
-	CRational result(firstRational.m_numerator * secondRational.m_denominator - secondRational.m_numerator*firstRational.m_denominator,
-		firstRational.m_denominator * secondRational.m_denominator);
-	result.Normalize();
-	return result;
+	return{ lhs.GetNumerator() * rhs.GetDenominator() - rhs.GetNumerator()*lhs.GetDenominator(),
+		lhs.GetDenominator() * rhs.GetDenominator() };
 }
 
 
@@ -118,10 +114,10 @@ CRational & CRational::operator -= (CRational const & otherRational)
 // TODO: 7. Реализовать оператор *
 //////////////////////////////////////////////////////////////////////////
 
-CRational operator*(CRational const & firstRational, CRational const & secondRational)
+CRational operator*(CRational const & lhs, CRational const & rhs)
 {
-	return{ firstRational.GetNumerator() * secondRational.GetNumerator(),
-		firstRational.GetDenominator() * secondRational.GetDenominator() };
+	return{ lhs.GetNumerator() * rhs.GetNumerator(),
+		lhs.GetDenominator() * rhs.GetDenominator() };
 }
 
 
@@ -129,10 +125,10 @@ CRational operator*(CRational const & firstRational, CRational const & secondRat
 // TODO: 8. Реализовать оператор /
 //////////////////////////////////////////////////////////////////////////
 
-CRational const operator / (CRational const & firstRational, CRational const & secondRational)
+CRational const operator / (CRational const & lhs, CRational const & rhs)
 {
-	return{ firstRational.GetNumerator() * secondRational.GetDenominator(),
-		firstRational.GetDenominator() * secondRational.GetNumerator() };
+	return{ lhs.GetNumerator() * rhs.GetDenominator(),
+		lhs.GetDenominator() * rhs.GetNumerator() };
 }
 
 
@@ -166,42 +162,42 @@ CRational & CRational::operator /= (CRational const & otherRational)
 // TODO: 11. Реализовать операторы == и !=
 //////////////////////////////////////////////////////////////////////////
 
-bool const operator == (CRational const & firstRational, CRational const & secondRational)
+bool const operator == (CRational const & lhs, CRational const & rhs)
 {
-	return ((firstRational.GetNumerator() == secondRational.GetNumerator()) &&
-		(firstRational.GetDenominator() == secondRational.GetDenominator()));
+	return ((lhs.GetNumerator() == rhs.GetNumerator()) &&
+		(lhs.GetDenominator() == rhs.GetDenominator()));
 }
 
-bool const operator != (CRational const & firstRational, CRational const & secondRational)
+bool const operator != (CRational const & lhs, CRational const & rhs)
 {
-	return (firstRational.GetNumerator() != secondRational.GetNumerator() ||
-		firstRational.GetDenominator() != secondRational.GetDenominator());
+	return (lhs.GetNumerator() != rhs.GetNumerator() ||
+		lhs.GetDenominator() != rhs.GetDenominator());
 }
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 12. Реализовать операторы <, >, <=, >=
 //////////////////////////////////////////////////////////////////////////
 
-bool const operator < (CRational const &firstRational, CRational const &secondRational)
+bool const operator < (CRational const &lhs, CRational const &rhs)
 {
-	return firstRational.GetNumerator() * secondRational.GetDenominator() <
-		secondRational.GetNumerator() * firstRational.GetDenominator();
+	return lhs.GetNumerator() * rhs.GetDenominator() <
+		rhs.GetNumerator() * lhs.GetDenominator();
 }
 
-bool const operator > (CRational const &firstRational, CRational const &secondRational)
+bool const operator > (CRational const &lhs, CRational const &rhs)
 {
-	return firstRational.GetNumerator() * secondRational.GetDenominator() >
-		secondRational.GetNumerator() * firstRational.GetDenominator();
+	return lhs.GetNumerator() * rhs.GetDenominator() >
+		rhs.GetNumerator() * lhs.GetDenominator();
 }
 
-bool const operator <= (CRational const &firstRational, CRational const &secondRational)
+bool const operator <= (CRational const &lhs, CRational const &rhs)
 {
-	return firstRational == secondRational || firstRational < secondRational;
+	return lhs == rhs || lhs < rhs;
 }
 
-bool const operator >= (CRational const &firstRational, CRational const &secondRational)
+bool const operator >= (CRational const &lhs, CRational const &rhs)
 {
-	return firstRational == secondRational || firstRational > secondRational;
+	return lhs == rhs || lhs > rhs;
 }
 
 
