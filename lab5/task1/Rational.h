@@ -209,3 +209,4 @@ std::ostream & operator <<(std::ostream & stream, CRational const & rationalNumb
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
 
+std::istream & operator >> (std::istream & stream, CRational & rational);

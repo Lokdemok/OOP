@@ -48,7 +48,7 @@ unsigned GCD(unsigned a, unsigned b)
 
 double CRational::ToDouble()const
 {
-	return double(m_numerator) / double(m_denominator);
+	return m_numerator / double(m_denominator);
 }
 
 
@@ -83,8 +83,7 @@ CRational operator + (CRational const & lhs, CRational const & rhs)
 
 CRational operator - (CRational const & lhs, CRational const & rhs)
 {
-	return{ lhs.GetNumerator() * rhs.GetDenominator() - rhs.GetNumerator()*lhs.GetDenominator(),
-		lhs.GetDenominator() * rhs.GetDenominator() };
+	return lhs + -rhs;
 }
 
 
@@ -105,8 +104,7 @@ CRational & CRational::operator += (CRational const & otherRational)
 
 CRational & CRational::operator -= (CRational const & otherRational)
 {
-	*this = *this - otherRational;
-	return *this;
+	return *this += -otherRational;
 }
 
 
@@ -127,8 +125,7 @@ CRational operator*(CRational const & lhs, CRational const & rhs)
 
 CRational const operator / (CRational const & lhs, CRational const & rhs)
 {
-	return{ lhs.GetNumerator() * rhs.GetDenominator(),
-		lhs.GetDenominator() * rhs.GetNumerator() };
+	return lhs * CRational(rhs.GetDenominator(), rhs.GetNumerator());
 }
 
 
@@ -151,10 +148,7 @@ CRational & CRational::operator *= (CRational const & otherRational)
 
 CRational & CRational::operator /= (CRational const & otherRational)
 {
-	m_numerator = m_numerator * otherRational.m_denominator;
-	m_denominator = m_denominator * otherRational.m_numerator;
-	Normalize();
-	return *this;
+	return *this *= CRational(otherRational.GetDenominator(), otherRational.GetNumerator());
 }
 
 
@@ -170,8 +164,7 @@ bool const operator == (CRational const & lhs, CRational const & rhs)
 
 bool const operator != (CRational const & lhs, CRational const & rhs)
 {
-	return (lhs.GetNumerator() != rhs.GetNumerator() ||
-		lhs.GetDenominator() != rhs.GetDenominator());
+	return !(lhs == rhs);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -186,8 +179,7 @@ bool const operator < (CRational const &lhs, CRational const &rhs)
 
 bool const operator > (CRational const &lhs, CRational const &rhs)
 {
-	return lhs.GetNumerator() * rhs.GetDenominator() >
-		rhs.GetNumerator() * lhs.GetDenominator();
+	return !(lhs <= rhs);
 }
 
 bool const operator <= (CRational const &lhs, CRational const &rhs)
@@ -197,7 +189,7 @@ bool const operator <= (CRational const &lhs, CRational const &rhs)
 
 bool const operator >= (CRational const &lhs, CRational const &rhs)
 {
-	return lhs == rhs || lhs > rhs;
+	return !(lhs < rhs);
 }
 
 
@@ -206,7 +198,7 @@ bool const operator >= (CRational const &lhs, CRational const &rhs)
 //////////////////////////////////////////////////////////////////////////
 
 
-std::ostream & operator<<(std::ostream & stream, CRational const & rationalNumber)
+std::ostream & operator << (std::ostream & stream, CRational const & rationalNumber)
 {
 	stream << rationalNumber.GetNumerator() << '/' << rationalNumber.GetDenominator();
 	return stream;
@@ -216,3 +208,18 @@ std::ostream & operator<<(std::ostream & stream, CRational const & rationalNumbe
 //////////////////////////////////////////////////////////////////////////
 // TODO: 14. Реализовать оператор ввода рационального числа из входного потока 
 //////////////////////////////////////////////////////////////////////////
+std::istream & operator >> (std::istream & stream, CRational & rational)
+{
+	int numerator;
+	int denominator;
+
+	if ((stream >> numerator) && (stream.get() == '/') && (stream >> denominator))
+	{
+		rational = CRational(numerator, denominator);
+	}
+	else
+	{
+		stream.setstate(stream.rdstate() | std::ios_base::failbit);
+	}
+	return stream;
+}

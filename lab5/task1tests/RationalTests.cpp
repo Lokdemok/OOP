@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	cout << r.ToDouble(); // Должно вывести 0.6
 //////////////////////////////////////////////////////////////////////////
 
-	BOOST_AUTO_TEST_CASE(rational_number_to_double)
+	BOOST_AUTO_TEST_CASE(can_be_transferred_to_double)
 	{
 		BOOST_CHECK_EQUAL(CRational(-2, 4).ToDouble(), -0.5);
 		BOOST_CHECK_EQUAL(CRational(3, 5).ToDouble(), 0.6);
@@ -113,14 +113,37 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	1 + (1/2)     = (3/2)
 //////////////////////////////////////////////////////////////////////////
 
-	BOOST_AUTO_TEST_CASE(rational_number_plus_rational_number_or_int)
+	struct binaryOperationFixture
 	{
-		CRational x(1, 2);
-		VerifyRational(x + 0, 1, 2);
-		VerifyRational(CRational(-2, 4) + CRational(-1, 4), -3, 4);
-		VerifyRational(CRational(1, 2) + CRational(1, 6), 2, 3);
-		VerifyRational(CRational(1, 2) + 3, 7, 2);
-		VerifyRational(-5 + CRational(2, 3), -13, 3);
+		CRational rational1;
+		binaryOperationFixture()
+			: rational1(1, 2)
+		{}
+	};
+	BOOST_FIXTURE_TEST_SUITE(binary_operators, binaryOperationFixture)
+		BOOST_AUTO_TEST_CASE(binary_plus_with_sixth_part)
+		{
+			auto r2 = rational1 + CRational(1, 6);
+			BOOST_CHECK_EQUAL(r2.GetNumerator(), 2);
+			BOOST_CHECK_EQUAL(r2.GetDenominator(), 3);
+		}
+	BOOST_AUTO_TEST_CASE(binary_plus_with_int)
+	{
+		auto r2 = rational1 + 1;
+		BOOST_CHECK_EQUAL(r2.GetNumerator(), 3);
+		BOOST_CHECK_EQUAL(r2.GetDenominator(), 2);
+	}
+	BOOST_AUTO_TEST_CASE(binary_plus_with_zero)
+	{
+		auto r2 = rational1 + 0;
+		BOOST_CHECK_EQUAL(r2.GetNumerator(), 1);
+		BOOST_CHECK_EQUAL(r2.GetDenominator(), 2);
+	}
+	BOOST_AUTO_TEST_CASE(binary_plus_with_negative_rational)
+	{
+		auto r2 = rational1 + CRational(-3, 4);
+		BOOST_CHECK_EQUAL(r2.GetNumerator(), -1);
+		BOOST_CHECK_EQUAL(r2.GetDenominator(), 4);
 	}
 
 
@@ -133,14 +156,40 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	1 - (1/2)     = (1/2)
 //////////////////////////////////////////////////////////////////////////
 
-	BOOST_AUTO_TEST_CASE(rational_number_minus_rational_number_or_int)
+		BOOST_AUTO_TEST_CASE(binary_minus_with_sixth_part)
+	{
+		auto r2 = rational1 - CRational(1, 6);
+		BOOST_CHECK_EQUAL(r2.GetNumerator(), 1);
+		BOOST_CHECK_EQUAL(r2.GetDenominator(), 3);
+	}
+	BOOST_AUTO_TEST_CASE(binary_minus_with_unit)
+	{
+		auto r2 = rational1 - CRational(1);
+		BOOST_CHECK_EQUAL(r2.GetNumerator(), -1);
+		BOOST_CHECK_EQUAL(r2.GetDenominator(), 2);
+	}
+	BOOST_AUTO_TEST_CASE(binary_minus_with_unit_conversely)
+	{
+		auto r2 = CRational(1) - rational1;
+		BOOST_CHECK_EQUAL(r2.GetNumerator(), 1);
+		BOOST_CHECK_EQUAL(r2.GetDenominator(), 2);
+	}
+	BOOST_AUTO_TEST_CASE(binary_minus_with_negative_unit_conversely)
+	{
+		auto r2 = CRational(-1) - rational1;
+		BOOST_CHECK_EQUAL(r2.GetNumerator(), -3);
+		BOOST_CHECK_EQUAL(r2.GetDenominator(), 2);
+	}
+	BOOST_AUTO_TEST_SUITE_END()
+
+/*	BOOST_AUTO_TEST_CASE(rational_number_minus_rational_number_or_int)
 	{
 		VerifyRational(CRational(1, 2) - 0, 1, 2);
 		VerifyRational(CRational(-2, 4) - CRational(-1, 4), -1, 4);
 		VerifyRational(CRational(1, 2) - CRational(1, 6), 1, 3);
 		VerifyRational(CRational(1, 2) - 1, -1, 2);
 		VerifyRational(1 - CRational(1, 2), 1, 2);
-	}
+	}*/
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -353,7 +402,5 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	std::istream в формате <числитель>/<знаменатель>, 
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
-
-
 
 BOOST_AUTO_TEST_SUITE_END()
