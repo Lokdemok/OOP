@@ -1,0 +1,2 @@
+www.mail.com:80/adress.doc
+www.google.ru/train/doc.txt
