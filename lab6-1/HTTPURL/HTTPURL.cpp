@@ -4,8 +4,8 @@
 #include "stdafx.h"
 
 #include <cctype>
-#include "HttpUrl.h"
-#include "UrlErrors.h"
+#include "HTTPURL.h"
+#include "URLErrors.h"
 #include <algorithm>
 #include <stdlib.h>
 

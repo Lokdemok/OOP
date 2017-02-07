@@ -2,8 +2,8 @@
 //
 
 #include "stdafx.h"
-#include "HTTPURL.h"
-#include "URLErrors.h"
+#include "../HTTPURL/HTTPURL.h"
+#include "../HTTPURL/URLErrors.h"
 
 BOOST_AUTO_TEST_SUITE(parsing_url)
 
