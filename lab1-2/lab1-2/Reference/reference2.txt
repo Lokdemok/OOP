@@ -1,0 +1,2 @@
+Incorrect input. The correct command line format:
+lab1-2.exe <A> <B> <C>
