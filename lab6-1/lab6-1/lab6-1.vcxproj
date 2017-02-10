@@ -19,10 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3DC4440A-F519-4031-A3FB-01341797698A}</ProjectGuid>
+    <ProjectGuid>{AD0C8320-4998-431E-A614-8CC00923F507}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>HTTPURL</RootNamespace>
+    <RootNamespace>lab61</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>HTTPURL</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

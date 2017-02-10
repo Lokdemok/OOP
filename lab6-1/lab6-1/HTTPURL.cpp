@@ -1,6 +1,3 @@
-// HTTPURL.cpp: определяет точку входа для консольного приложения.
-//
-
 #include "stdafx.h"
 
 #include <cctype>
@@ -78,7 +75,7 @@ CHttpUrl::CHttpUrl(std::string const &url)
 {
 	const std::string http("http://");
 	const std::string https("https://");
-	unsigned long protocolPosition;
+	size_t protocolPosition;
 
 	std::string domain;
 	std::string document;
@@ -98,7 +95,7 @@ CHttpUrl::CHttpUrl(std::string const &url)
 	else
 	{
 		throw CUrlParsingError(
-			"You should pass a url with protocol at the beginning. For example: <https://www.amazon.com>");
+			"You should pass a url with protocol at the beginning. For example: <https://www.google.com>");
 	}
 
 	std::string str = url.substr(protocolPosition);
