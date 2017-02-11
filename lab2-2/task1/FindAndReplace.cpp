@@ -9,18 +9,18 @@ string FindAndReplace(const string & subject, const string & search, const strin
 	{
 		return subject;
 	}
-
 	string newString;
-	size_t startingPosition = 0;
-	size_t endPosition = 0;
-	while ((startingPosition = subject.find(search, startingPosition)) != string::npos)
+	size_t startPos = 0;
+	size_t endPos = 0;
+	while ((startPos= subject.find(search, startPos)) != string::npos)
 	{
-		newString.append(subject, endPosition, startingPosition - endPosition);
+		newString += subject.substr(endPos, startPos - endPos);
+		startPos += search.length();
+		endPos = startPos;
 		newString += replace;
-		startingPosition += search.length();
-		endPosition = startingPosition;
 	}
-	newString.append(subject, endPosition);
+	newString += subject.substr(endPos);
+	//newString.append(subject, endPos);
 
 	return newString;
 }
