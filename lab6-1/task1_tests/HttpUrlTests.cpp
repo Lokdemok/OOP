@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "../lab6-1/HTTPURL.h"
-#include "../lab6-1/URLErrors.h"
+#include "../task1/HTTPURL.h"
+#include "../task1/URLErrors.h"
 
 
 BOOST_AUTO_TEST_SUITE(parsing_url)
