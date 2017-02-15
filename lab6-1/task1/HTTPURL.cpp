@@ -4,20 +4,21 @@
 #include "HTTPURL.h"
 #include "URLErrors.h"
 #include <algorithm>
-#include <stdlib.h>
 
-CHttpUrl::CHttpUrl(std::string const &domain, std::string const &document, Protocol protocol,
+using namespace std;
+
+CHttpUrl::CHttpUrl(string const &domain, string const &document, Protocol protocol,
 	unsigned short port)
 {
 	InitializePartsOfUrl(domain, document, protocol, port);
 }
 
-bool CHttpUrl::IsDomainCorrect(const std::string &domain) const
+bool CHttpUrl::IsDomainCorrect(const string &domain) const
 {
-	return (domain.find_first_of(" \t") == std::string::npos);
+	return (domain.find_first_of(" \t") == string::npos);
 }
 
-void CHttpUrl::InitializePartsOfUrl(std::string const &domain, std::string const &document, Protocol protocol,
+void CHttpUrl::InitializePartsOfUrl(string const &domain, string const &document, Protocol protocol,
 	unsigned short port)
 {
 	m_domain = domain;
@@ -50,35 +51,35 @@ void CHttpUrl::InitializePartsOfUrl(std::string const &domain, std::string const
 	}
 	else
 	{
-		m_url = m_protocol + "://" + m_domain + ":" + std::to_string(m_port) + m_document;
+		m_url = m_protocol + "://" + m_domain + ":" + to_string(m_port) + m_document;
 	}
 }
 
-bool CHttpUrl::IsProtocolInUrl(const std::string &protocol, const std::string &url) const
+bool CHttpUrl::IsProtocolInUrl(const string &protocol, const string &url) const
 {
-	return url.find(protocol) != std::string::npos;
+	return url.find(protocol) != string::npos;
 }
 
-bool CHttpUrl::IsNumber(const std::string &s)
+bool CHttpUrl::IsNumber(const string &s)
 {
-	return !s.empty() && std::find_if(s.begin(),
+	return !s.empty() && find_if(s.begin(),
 		s.end(), [](char c)
-	{ return !std::isdigit(c); }) == s.end();
+	{ return !isdigit(c); }) == s.end();
 }
 
-bool CHttpUrl::IsPortCorrect(const int &port) const
+bool CHttpUrl::IsPortCorrect(const long &port) const
 {
 	return (port >= 0 && port < 65535);
 }
 
-CHttpUrl::CHttpUrl(std::string const &url)
+CHttpUrl::CHttpUrl(string const &url)
 {
-	const std::string http("http://");
-	const std::string https("https://");
+	const string http("http://");
+	const string https("https://");
 	size_t protocolPosition;
 
-	std::string domain;
-	std::string document;
+	string domain;
+	string document;
 	Protocol protocol;
 	unsigned short port;
 
@@ -98,13 +99,13 @@ CHttpUrl::CHttpUrl(std::string const &url)
 			"You should pass a url with protocol at the beginning. For example: <https://www.google.com>");
 	}
 
-	std::string str = url.substr(protocolPosition);
+	string str = url.substr(protocolPosition);
 	auto portPosition = str.find_first_of(":");
 
-	if (portPosition == std::string::npos)
+	if (portPosition == string::npos)
 	{
 		auto positionOfDocument = str.substr(1).find_first_of("/");
-		if (positionOfDocument != std::string::npos)
+		if (positionOfDocument != string::npos)
 		{
 			document = str.substr(positionOfDocument + 1);
 		}
@@ -130,14 +131,14 @@ CHttpUrl::CHttpUrl(std::string const &url)
 	else
 	{
 		auto positionOfDocument = str.substr(1).find_first_of("/");
-		std::string expectedPort = str.substr(portPosition + 1, positionOfDocument - portPosition);
+		string expectedPort = str.substr(portPosition + 1, positionOfDocument - portPosition);
 
-		if (!IsNumber(expectedPort) || !IsPortCorrect((atoi(expectedPort.c_str()))))
+		if (!IsNumber(expectedPort) || !IsPortCorrect(stol(expectedPort)))
 		{
 			throw CUrlParsingError("Unknown port");
 		}
 		port = static_cast<unsigned short>(atoi(expectedPort.c_str()));
-		if (positionOfDocument != std::string::npos)
+		if (positionOfDocument != string::npos)
 		{
 			document = str.substr(positionOfDocument + 1);
 		}

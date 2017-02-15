@@ -57,7 +57,7 @@ private:
 	bool IsNumber(const string &s);
 	bool IsProtocolInUrl(const string &protocol, const string &url) const;
 	bool IsDomainCorrect(const string & domain) const;
-	bool IsPortCorrect(const int & port) const;
+	bool IsPortCorrect(const long & port) const;
 	string m_url;
 	string m_domain;
 	string m_document;

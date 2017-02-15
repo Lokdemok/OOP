@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(throws_parsing_error_if_port_is_incorrect)
 	BOOST_CHECK_NO_THROW(CHttpUrl url("https://google.com:65534"));
 	BOOST_CHECK_THROW(CHttpUrl url("http://google.com:bla"), CUrlParsingError);
 	BOOST_CHECK_THROW(CHttpUrl url("https://google.com:5bdh5"), CUrlParsingError);
-	BOOST_CHECK_THROW(CHttpUrl url("https://google.com:99999999999999"), CUrlParsingError);
+	BOOST_CHECK_THROW(CHttpUrl url("https://google.com:999999999999"), CUrlParsingError);
 	BOOST_CHECK_THROW(CHttpUrl url("https://google.com:-999"), CUrlParsingError);
 }
 
