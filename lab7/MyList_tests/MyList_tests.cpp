@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 template<typename T>
 void CheckList(CList<T> & list, vector<T> & expectedElements)
 {
@@ -122,6 +123,7 @@ BOOST_AUTO_TEST_SUITE(my_list)
 		BOOST_CHECK_EQUAL(list.GetSize(), 2);
 		vector<string> expectedStrings = { "two", "three" };
 		CheckList(list, expectedStrings);
+
 	}
 
 	BOOST_AUTO_TEST_CASE(delete_element_in_iterator_position)

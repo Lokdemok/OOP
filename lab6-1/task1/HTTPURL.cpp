@@ -7,6 +7,13 @@
 
 using namespace std;
 
+namespace
+{
+	const string HTTP_DDMAIN = "http://";
+	const string https = "https://";
+	
+}
+
 CHttpUrl::CHttpUrl(string const &domain, string const &document, Protocol protocol,
 	unsigned short port)
 {

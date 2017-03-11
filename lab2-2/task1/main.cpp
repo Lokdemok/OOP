@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "string"
+#include <string>
 #include "FindAndReplace.h"
 #include <iostream>
 

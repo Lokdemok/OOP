@@ -4,13 +4,18 @@
 #include "stdafx.h"
 
 using namespace std;
+namespace
+{
+	const int NUMBER_OF_ARGUMENTS = 4;
+	const int NUMBER_OF_SIGNS_AFTER_DECIMAL_POINT = 4;
+}
 
-double CalculateDiscriminant(const double & a, const double & b, const double & c)
+double CalculateDiscriminant(double a, double b, double c)
 {
 	return (b * b - 4 * a * c);
 }
 
-vector <double> CalculateRoot(const double & discriminant, const double & a, const double & b, const double & c)
+vector <double> CalculateRoot(double discriminant, double a, double b, double c)
 {
 	vector <double> roots;
 	if (a != 0)
@@ -28,37 +33,37 @@ vector <double> CalculateRoot(const double & discriminant, const double & a, con
 	return roots;
 }
 
-void PrintResult(const vector <double> & roots, const double & a)
+void PrintResult(const vector <double> & roots, double a)
 {
 	if (a == 0)
 	{
-		cout << "This equation is not square, a = 0\n";
+		std::cout << "This equation is not square, a = 0\n";
 	}
 	else if (roots.empty())
 	{
-		cout << "There is no real root\n";
+		std::cout << "There is no real root\n";
 	}
 	else if (roots.size() >= 1)
 	{
-		cout << setprecision(4);
-		copy(roots.begin(), roots.end(), ostream_iterator<double>(cout, " "));
+		std::cout << setprecision(NUMBER_OF_SIGNS_AFTER_DECIMAL_POINT);
+		copy(roots.begin(), roots.end(), ostream_iterator<double>(std::cout, " "));
 	}
 }
 
 int main(int argc, char *argv[])
 {
-	if (argc != 4)
+	if (argc != NUMBER_OF_ARGUMENTS)
 	{
-		cout << "Incorrect input. The correct command line format:\nlab1-2.exe <A> <B> <C>\n";
+		std::cout << "Incorrect input. The correct command line format:\nlab1-2.exe <A> <B> <C>\n";
 		return -1;
 	}
 	else
 	{
-		for (int i = 1; i < 4; ++i)
+		for (int i = 1; i < NUMBER_OF_ARGUMENTS; ++i)
 		{
 			if (!isdigit(*argv[i]) && *argv[i] != '-')
 			{
-				cout << "It's not a number: " << argv[i] << endl;
+				std::cout << "It's not a number: " << argv[i] << endl;
 				return -1;
 			}
 		}
