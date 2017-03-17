@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "FindAndReplace.h"
-#include "string"
+
 using namespace std;
 
 string FindAndReplace(const string & subject, const string & search, const string & replace)
@@ -20,7 +20,5 @@ string FindAndReplace(const string & subject, const string & search, const strin
 		newString += replace;
 	}
 	newString += subject.substr(endPos);
-	//newString.append(subject, endPos);
-
 	return newString;
 }

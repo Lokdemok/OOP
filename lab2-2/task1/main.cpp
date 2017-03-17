@@ -1,13 +1,16 @@
 #include "stdafx.h"
-#include <string>
 #include "FindAndReplace.h"
-#include <iostream>
 
 using namespace std;
 
+namespace
+{
+	const int NUMBER_OF_ARGUMENTS = 3;
+}
+
 int main(int argc, char *argv[])
 {
-	if (argc != 3)
+	if (argc != NUMBER_OF_ARGUMENTS)
 	{
 		cout << "Error arguments!" << endl;
 		return 1;
