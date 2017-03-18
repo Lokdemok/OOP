@@ -21,7 +21,7 @@ CCone::~CCone()
 
 void CCone::SetVolume()
 {
-	m_volume = ( M_PI * std::pow(m_radius, 2) * m_height) / 3;
+	m_volume = (M_PI * m_height * std::pow(m_radius, 2)) / 3;
 }
 
 std::string CCone::GetInfo()

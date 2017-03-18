@@ -157,15 +157,24 @@
   <ItemGroup>
     <ClInclude Include="..\Body\CBody.h" />
     <ClInclude Include="..\Body\CCompound.h" />
+    <ClInclude Include="..\Body\CCone.h" />
+    <ClInclude Include="..\Body\CCylinder.h" />
+    <ClInclude Include="..\Body\CManager.h" />
+    <ClInclude Include="..\Body\CParallelepiped.h" />
     <ClInclude Include="..\Body\CSphere.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Body\CBody.cpp" />
+    <ClCompile Include="..\Body\CCompound.cpp" />
+    <ClCompile Include="..\Body\CCone.cpp" />
+    <ClCompile Include="..\Body\CCylinder.cpp" />
+    <ClCompile Include="..\Body\CManager.cpp" />
+    <ClCompile Include="..\Body\CParallelepiped.cpp" />
     <ClCompile Include="..\Body\CSphere.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="BodyTests.cpp" />
-    <ClCompile Include="SphereTests.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
