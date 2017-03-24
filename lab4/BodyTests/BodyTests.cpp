@@ -12,9 +12,9 @@ namespace
 	CParallelepiped parallelepiped(10, 2, 3, 4);
 	CCylinder cylinder(10, 2, 3);
 	CCone cone(5, 3, 5);
-	CCompound compoundBody;
+	CCompound compound;
 }
-BOOST_AUTO_TEST_SUITE(test_sphere)
+BOOST_AUTO_TEST_SUITE(Sphere)
 
 BOOST_AUTO_TEST_CASE(has_a_density)
 {
@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(has_a_density)
 
 BOOST_AUTO_TEST_CASE(has_a_weigth)
 {
-	BOOST_CHECK_EQUAL(float(sphere.GetWeight()), float(335.10321));
+	BOOST_CHECK_EQUAL(float(sphere.GetMass()), float(335.10321));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_volume)
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(has_a_density)
 
 BOOST_AUTO_TEST_CASE(has_a_weigth)
 {
-	BOOST_CHECK_EQUAL(float(parallelepiped.GetWeight()), float(240));
+	BOOST_CHECK_EQUAL(float(parallelepiped.GetMass()), float(240));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_volume)
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(has_a_density)
 
 BOOST_AUTO_TEST_CASE(has_a_weigth)
 {
-	BOOST_CHECK_EQUAL(float(cylinder.GetWeight()), float(565.486694));
+	BOOST_CHECK_EQUAL(float(cylinder.GetMass()), float(565.486694));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_volume)
@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE(has_a_density)
 
 BOOST_AUTO_TEST_CASE(has_a_weigth)
 {
-	BOOST_CHECK_EQUAL(float(cone.GetWeight()), float(392.699097));
+	BOOST_CHECK_EQUAL(float(cone.GetMass()), float(392.699097));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_volume)
@@ -113,54 +113,63 @@ Weight = 392.699082\nHeight = 3.000000\nRadius = 5.000000\n";
 }
 BOOST_AUTO_TEST_SUITE_END();
 
-BOOST_AUTO_TEST_SUITE(Compound_one_body)
+BOOST_AUTO_TEST_SUITE(Compound_with_one_body)
 
 BOOST_AUTO_TEST_CASE(has_a_density)
 {
-	compoundBody.AddBody(parallelepiped);
-	BOOST_CHECK_EQUAL(float(compoundBody.GetDensity()), 10);
+	compound.AddBody(std::make_shared<CParallelepiped>(parallelepiped));
+	BOOST_CHECK_EQUAL(float(compound.GetDensity()), 10);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_weigth)
 {
-	BOOST_CHECK_EQUAL(float(compoundBody.GetWeight()), float(240));
+	BOOST_CHECK_EQUAL(float(compound.GetMass()), float(240));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_volume)
 {
-	BOOST_CHECK_EQUAL(float(compoundBody.GetVolume()), float(24));
+	BOOST_CHECK_EQUAL(float(compound.GetVolume()), float(24));
 }
 
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
-	auto expectedString = "Type = compound\nDensity = 10.000000\nVolume = 24.000000\nWeight = 240.000000\n";
-	BOOST_CHECK_EQUAL(compoundBody.GetInfo(), expectedString);
+	auto expectedString = "Type = compound\nDensity = 10.000000\nVolume = 24.000000\nWeight = 240.000000\n\
+Type = parallelepiped\nDensity = 10.000000\nVolume = 24.000000\nWeight = 240.000000\nHeight = 2.000000\nWidth = 3.000000\nDepth = 4.000000\n";
+	BOOST_CHECK_EQUAL(compound.GetInfo(), expectedString);
 }
 BOOST_AUTO_TEST_SUITE_END();
 
-BOOST_AUTO_TEST_SUITE(Compound_few_body)
+BOOST_AUTO_TEST_SUITE(Compound_with_few_body)
 
 BOOST_AUTO_TEST_CASE(has_a_density)
 {
-	compoundBody.AddBody(sphere);
-	compoundBody.AddBody(cone);
-	compoundBody.AddBody(cylinder);
-	BOOST_CHECK_EQUAL(float(compoundBody.GetDensity()), 35);
+	compound.AddBody(std::make_shared<CCone>(cone));
+	BOOST_CHECK_EQUAL(float(compound.GetDensity()), 7.5);
 }
 
 BOOST_AUTO_TEST_CASE(has_a_weigth)
 {
-	BOOST_CHECK_EQUAL(float(compoundBody.GetWeight()), float(6740.95801));
+	BOOST_CHECK_EQUAL(float(compound.GetMass()), float(769.048645));
 }
 
 BOOST_AUTO_TEST_CASE(has_a_volume)
 {
-	BOOST_CHECK_EQUAL(float(compoundBody.GetVolume()), float(192.598801));
+	BOOST_CHECK_EQUAL(float(compound.GetVolume()), float(102.539818));
 }
 
 BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 {
-	auto expectedString = "Type = compound\nDensity = 35.000000\nVolume = 192.598806\nWeight = 6740.958201\n";
-	BOOST_CHECK_EQUAL(compoundBody.GetInfo(), expectedString);
+	auto expectedString = "Type = compound\nDensity = 7.500000\nVolume = 102.539816\nWeight = 769.048623\n\
+Type = parallelepiped\nDensity = 10.000000\nVolume = 24.000000\nWeight = 240.000000\nHeight = 2.000000\nWidth = 3.000000\nDepth = 4.000000\n\
+Type = cone\nDensity = 5.000000\nVolume = 78.539816\nWeight = 392.699082\nHeight = 3.000000\nRadius = 5.000000\n";
+	BOOST_CHECK_EQUAL(compound.GetInfo(), expectedString);
+}
+
+BOOST_AUTO_TEST_CASE(can_not_take_itself)
+{
+	std::shared_ptr<CCompound> pCompound = std::make_shared<CCompound>();
+	BOOST_CHECK_EQUAL(pCompound->GetBodiesCount(), 0);
+	pCompound->AddBody(pCompound);
+	BOOST_CHECK_EQUAL(pCompound->GetBodiesCount(), 0);
 }
 BOOST_AUTO_TEST_SUITE_END();

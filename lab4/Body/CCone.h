@@ -1,15 +1,15 @@
 #pragma once
-#include "CBody.h"
+#include "CSolidBody.h"
 
-class CCone : public CBody
+class CCone : public CSolidBody
 {
 public:
-	CCone();
 	CCone(double density, double height, double radius);
-	~CCone();
-	std::string GetInfo();
+	double GetVolume() const override;
+	double GetRadius() const;
+	double GetHeight() const;
+	std::string GetInfo() const override;
 private:
-	void SetVolume() override;
 	double m_height;
 	double m_radius;
 };

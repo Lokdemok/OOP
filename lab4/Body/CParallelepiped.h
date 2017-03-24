@@ -1,16 +1,17 @@
 #pragma once
-#include "CBody.h"
+#include "CSolidBody.h"
 
-class CParallelepiped : public CBody
+class CParallelepiped : public CSolidBody
 {
 public:
-	CParallelepiped();
 	CParallelepiped(double density, double height, double width, double depth);
-	~CParallelepiped();
-	std::string GetInfo() override;
+	double GetVolume() const override;
+	double GetWidth() const;
+	double GetDepth() const;
+	double GetHeight() const;
+	std::string GetInfo() const override;
 private:
-	void SetVolume() override;
-	double m_height;
-	double m_width;
-	double m_depth;
+	double m_height = 0;
+	double m_width = 0;
+	double m_depth = 0;
 };

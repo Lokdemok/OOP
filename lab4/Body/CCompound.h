@@ -5,10 +5,15 @@ class CCompound : public CBody
 {
 public:
 	CCompound();
-	~CCompound();
-	void AddBody(CBody const& otherbody);
-	std::string GetInfo() override;
-protected:
-	void SetDensity(double density) override;
-	void SetVolume(double volume) override;
+	double GetDensity()const override;
+	double GetVolume()const override;
+	double GetMass()const override;
+	void AddBody(std::shared_ptr<CBody> && body);
+	std::string GetInfo() const override;
+	int GetBodiesCount() const;
+private:
+	double CalculateDensity() const;
+	double CalculateVolume() const;
+	std::string ToString() const;
+	std::vector<std::shared_ptr<CBody>> m_bodies;
 };

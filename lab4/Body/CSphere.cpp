@@ -1,35 +1,30 @@
 #include "stdafx.h"
 #include "CSphere.h"
 
-CSphere::CSphere()
-{
-}
-
 CSphere::CSphere(double density, double radius)
-	: m_radius(radius)
-{
-	SetVolume();
-	SetDensity(density);
-	SetWeight();
-}
-
-CSphere::~CSphere()
+	: CSolidBody(density),
+	m_radius(radius)
 {
 }
 
 
-void CSphere::SetVolume()
+double CSphere::GetVolume()const
 {
-	m_volume = (4.0 * M_PI * std::pow(m_radius, 3)) / 3;
+	return (pow(GetRadius(), 3) * M_PI) * 4 / 3;
 }
 
-std::string CSphere::GetInfo()
+double CSphere::GetRadius()const
+{
+	return m_radius;
+}
+
+std::string CSphere::GetInfo() const
 {
 	std::string info;
 	info = "Type = sphere\n";
-	info.append("Density = " + std::to_string(m_density) + "\n");
-	info.append("Volume = " + std::to_string(m_volume) + "\n");
-	info.append("Weight = " + std::to_string(m_weight) + "\n");
-	info.append("Radius = " + std::to_string(m_radius) + "\n");
+	info.append("Density = " + std::to_string(GetDensity()) + "\n");
+	info.append("Volume = " + std::to_string(GetVolume()) + "\n");
+	info.append("Weight = " + std::to_string(GetMass()) + "\n");
+	info.append("Radius = " + std::to_string(GetRadius()) + "\n");
 	return info;
 }

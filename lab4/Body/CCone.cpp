@@ -1,37 +1,37 @@
 #include "stdafx.h"
 #include "CCone.h"
 
-CCone::CCone()
-{
-}
 
 CCone::CCone(double density, double height, double radius)
-	: m_height(height),
+	: CSolidBody(density), 
+	m_height(height),
 	m_radius(radius)
 {
-	SetVolume();
-	SetDensity(density);
-	SetWeight();
 }
 
-CCone::~CCone()
+double CCone::GetVolume() const
 {
+	return (M_PI * GetHeight() * std::pow(GetRadius(), 2)) / 3;
 }
 
-
-void CCone::SetVolume()
+double CCone::GetHeight() const
 {
-	m_volume = (M_PI * m_height * std::pow(m_radius, 2)) / 3;
+	return m_height;
 }
 
-std::string CCone::GetInfo()
+double CCone::GetRadius() const
+{
+	return m_radius;
+}
+
+std::string CCone::GetInfo() const
 {
 	std::string info;
 	info = "Type = cone\n";
-	info.append("Density = " + std::to_string(m_density) + "\n");
-	info.append("Volume = " + std::to_string(m_volume) + "\n");
-	info.append("Weight = " + std::to_string(m_weight) + "\n");
-	info.append("Height = " + std::to_string(m_height) + "\n");
-	info.append("Radius = " + std::to_string(m_radius) + "\n");
+	info.append("Density = " + std::to_string(GetDensity()) + "\n");
+	info.append("Volume = " + std::to_string(GetVolume()) + "\n");
+	info.append("Weight = " + std::to_string(GetMass()) + "\n");
+	info.append("Height = " + std::to_string(GetHeight()) + "\n");
+	info.append("Radius = " + std::to_string(GetRadius()) + "\n");
 	return info;
 }

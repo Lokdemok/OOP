@@ -1,14 +1,13 @@
 #pragma once
-#include "CBody.h"
+#include "CSolidBody.h"
 
-class CSphere : public CBody
+class CSphere final : public CSolidBody
 {
 public:
-	CSphere();
-	CSphere(double density, double raduis);
-	~CSphere();
-	std::string GetInfo() override;
+	CSphere(double density, double radius);
+	double GetVolume() const override;
+	double GetRadius() const;
+	std::string GetInfo() const override;
 private:
-	void SetVolume() override;
-	double m_radius;
+	double m_radius = 0;
 };

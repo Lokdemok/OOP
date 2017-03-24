@@ -3,37 +3,77 @@
 
 
 CCompound::CCompound()
+	: CBody(0)
 {
 }
 
-
-CCompound::~CCompound()
+void CCompound::AddBody(std::shared_ptr<CBody> && shape)
 {
+	const CBody *body = this;
+	const CBody *otherBody = shape.get();
+	if (body != otherBody)
+	{
+		m_bodies.push_back(move(shape));
+	}
 }
 
-void CCompound::AddBody(CBody const & otherBody)
+double CCompound::CalculateVolume() const
 {
-	SetDensity(otherBody.GetDensity());
-	SetVolume(otherBody.GetVolume());
-	SetWeight();
+	double volume = 0;
+	for (auto const & body : m_bodies)
+	{
+		volume += (body)->GetVolume();
+	}
+	return volume;
 }
 
-void CCompound::SetDensity(double density)
+double CCompound::CalculateDensity() const
 {
-	m_density += density;
+	double sumBodiesDensity = 0;
+	for (auto const & body : m_bodies)
+	{
+		sumBodiesDensity += (body)->GetDensity();
+	}
+	return sumBodiesDensity / m_bodies.size();
 }
 
-void CCompound::SetVolume(double volume)
+double CCompound::GetMass() const
 {
-	m_volume += volume;
+	return GetVolume() * GetDensity();
 }
 
-std::string CCompound::GetInfo()
+double CCompound::GetVolume() const
+{
+	return CalculateVolume();
+}
+
+double CCompound::GetDensity() const
+{
+	return CalculateDensity();
+}
+
+std::string CCompound::ToString() const
+{
+	std::string info;
+	for (auto const & body : m_bodies)
+	{
+		info += (body)->GetInfo();
+	}
+	return info;
+}
+
+std::string CCompound::GetInfo() const
 {
 	std::string info;
 	info = "Type = compound\n";
-	info.append("Density = " + std::to_string(m_density) + "\n");
-	info.append("Volume = " + std::to_string(m_volume) + "\n");
-	info.append("Weight = " + std::to_string(m_weight) + "\n");
+	info.append("Density = " + std::to_string(GetDensity()) + "\n");
+	info.append("Volume = " + std::to_string(GetVolume()) + "\n");
+	info.append("Weight = " + std::to_string(GetMass()) + "\n");
+	info.append(ToString());
 	return info;
+}
+
+int CCompound::GetBodiesCount() const
+{
+	return m_bodies.size();
 }

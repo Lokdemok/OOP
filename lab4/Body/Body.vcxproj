@@ -149,8 +149,8 @@
     <ClInclude Include="CCompound.h" />
     <ClInclude Include="CCone.h" />
     <ClInclude Include="CCylinder.h" />
-    <ClInclude Include="CManager.h" />
     <ClInclude Include="CParallelepiped.h" />
+    <ClInclude Include="CSolidBody.h" />
     <ClInclude Include="CSphere.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -160,8 +160,8 @@
     <ClCompile Include="CCone.cpp" />
     <ClCompile Include="CCylinder.cpp" />
     <ClCompile Include="CParallelepiped.cpp" />
+    <ClCompile Include="CSolidBody.cpp" />
     <ClCompile Include="CSphere.cpp" />
-    <ClCompile Include="CManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CBody.cpp" />
     <ClCompile Include="stdafx.cpp">

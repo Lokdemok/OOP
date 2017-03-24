@@ -4,19 +4,13 @@
 class CBody
 {
 public:
-	CBody();
-	~CBody();
-	double GetDensity() const;
-	double GetVolume() const;
-	double GetWeight() const;
-	virtual std::string GetInfo() = 0;
+	CBody(double density);
+	virtual ~CBody();
+	virtual double GetDensity() const = 0;
+	virtual double GetVolume() const = 0;
+	virtual double GetMass() const = 0;
+	virtual std::string GetInfo() const = 0;
 protected:
-	virtual void SetWeight();
-	virtual void SetDensity(double density);
-	virtual void SetVolume();
-	virtual void SetVolume(double volume);
-	double m_weight;
-	double m_density;
-	double m_volume;
 	std::string m_info;
+	double m_density = 0;
 };

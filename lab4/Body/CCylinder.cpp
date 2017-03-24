@@ -1,37 +1,37 @@
 #include "stdafx.h"
 #include "CCylinder.h"
 
-CCylinder::CCylinder()
-{
-}
 
 CCylinder::CCylinder(double density, double height, double radius)
-	: m_height(height),
+	: CSolidBody(density), 
+	m_height(height),
 	m_radius(radius)
 {
-	SetVolume();
-	SetDensity(density);
-	SetWeight();
 }
 
-CCylinder::~CCylinder()
+double CCylinder::GetVolume() const
 {
+	return M_PI * std::pow(GetRadius(), 2) * GetHeight();
 }
 
-
-void CCylinder::SetVolume()
+double CCylinder::GetRadius() const
 {
-	m_volume = M_PI * std::pow(m_radius, 2) * m_height;
+	return m_radius;
 }
 
-std::string CCylinder::GetInfo()
+double CCylinder::GetHeight() const
+{
+	return m_height;
+}
+
+std::string CCylinder::GetInfo() const
 {
 	std::string info;
 	info = "Type = cylinder\n";
-	info.append("Density = " + std::to_string(m_density) + "\n");
-	info.append("Volume = " + std::to_string(m_volume) + "\n");
-	info.append("Weight = " + std::to_string(m_weight) + "\n");
-	info.append("Height = " + std::to_string(m_height) + "\n");
-	info.append("Radius = " + std::to_string(m_radius) + "\n");
+	info.append("Density = " + std::to_string(GetDensity()) + "\n");
+	info.append("Volume = " + std::to_string(GetVolume()) + "\n");
+	info.append("Weight = " + std::to_string(GetMass()) + "\n");
+	info.append("Height = " + std::to_string(GetHeight()) + "\n");
+	info.append("Radius = " + std::to_string(GetRadius()) + "\n");
 	return info;
 }

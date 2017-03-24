@@ -1,15 +1,15 @@
 #pragma once
-#include "CBody.h"
+#include "CSolidBody.h"
 
-class CCylinder : public CBody
+class CCylinder : public CSolidBody
 {
 public:
-	CCylinder();
 	CCylinder(double density, double height, double radius);
-	~CCylinder();
-	std::string GetInfo() override;
+	double GetVolume() const override;
+	double GetRadius() const;
+	double GetHeight() const;
+	std::string GetInfo() const override;
 private:
-	void SetVolume() override;
 	double m_radius;
 	double m_height;
 };
